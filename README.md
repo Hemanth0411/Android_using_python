@@ -1,7 +1,3 @@
-Here’s a clean and modular `README.md` that introduces your project structure and describes the current ADB automation script as one of potentially many utilities you’ll add later:
-
----
-
 ## 📱 Android Automation Utilities
 
 This repository contains a collection of scripts and tools to **automate Android device interactions** using ADB (Android Debug Bridge). These utilities are helpful for:
