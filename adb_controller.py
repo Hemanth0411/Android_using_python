@@ -43,7 +43,7 @@ def type_text(text):
     """Types the given text using ADB."""
     # Replace spaces with %s for ADB command
     escaped_text = text.replace(' ', '%s')
-    run_adb_command(f"shell input text '{escaped_text}'") # Use single quotes for safety
+    run_adb_command(f"shell input text '{escaped_text}'") 
 
 def tap(x, y):
     """Taps at the specified coordinates."""
@@ -87,7 +87,6 @@ def swipe_direction(direction, distance_factor=0.5, duration_ms=300):
         print(f"Invalid swipe direction: {direction}")
         return
 
-    # Ensure coordinates are within bounds
     start_x = max(0, min(width - 1, start_x))
     start_y = max(0, min(height - 1, start_y))
     end_x = max(0, min(width - 1, end_x))
