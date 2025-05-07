@@ -43,7 +43,7 @@ def type_text(text):
     """Types the given text using ADB."""
     # Replace spaces with %s for ADB command
     escaped_text = text.replace(' ', '%s')
-    run_adb_command(f"shell input text '{escaped_text}'") 
+    run_adb_command(f"shell input text '{escaped_text}'") # Use single quotes for safety
 
 def tap(x, y):
     """Taps at the specified coordinates."""
@@ -87,6 +87,7 @@ def swipe_direction(direction, distance_factor=0.5, duration_ms=300):
         print(f"Invalid swipe direction: {direction}")
         return
 
+    # Ensure coordinates are within bounds
     start_x = max(0, min(width - 1, start_x))
     start_y = max(0, min(height - 1, start_y))
     end_x = max(0, min(width - 1, end_x))
@@ -105,6 +106,68 @@ def swipe_left(duration_ms=300):
 
 def swipe_right(duration_ms=300):
     swipe_direction("right", duration_ms=duration_ms)
+
+def press_keyevent(keycode):
+    """Presses a specific keycode using ADB."""
+    run_adb_command(f"shell input keyevent {keycode}")
+
+def press_home():
+    """Presses the HOME button."""
+    press_keyevent(3)
+
+def press_back():
+    """Presses the BACK button."""
+    press_keyevent(4)
+
+def press_enter():
+    """Presses the ENTER/GO button."""
+    press_keyevent(66)
+
+def volume_up():
+    """Increases the volume."""
+    press_keyevent(24)
+
+def volume_down():
+    """Decreases the volume."""
+    press_keyevent(25)
+
+def open_notifications():
+    """Opens the notification shade."""
+    # This uses a different command than keyevent
+    run_adb_command("shell cmd statusbar expand-notifications")
+
+def press_power():
+    """Presses the POWER button."""
+    press_keyevent(26)
+
+def press_delete():
+    """Presses the DELETE/BACKSPACE button."""
+    press_keyevent(67)
+
+def press_tab():
+    """Presses the TAB button."""
+    press_keyevent(61)
+
+def press_media_play_pause():
+    """Presses the MEDIA_PLAY_PAUSE button."""
+    press_keyevent(85)
+
+def press_media_next():
+    """Presses the MEDIA_NEXT button."""
+    press_keyevent(87)
+
+def press_media_previous():
+    """Presses the MEDIA_PREVIOUS button."""
+    press_keyevent(88)
+
+def press_mute():
+    """Presses the MUTE button."""
+    # Keycode 164 is common, 91 is older
+    press_keyevent(164)
+
+def press_app_switch():
+    """Presses the APP_SWITCH (Recents) button."""
+    press_keyevent(187)
 
 
 if __name__ == "__main__":
