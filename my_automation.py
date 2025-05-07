@@ -3,17 +3,14 @@ import time
 
 print("Starting custom automation...")
 
-# Example: Open settings (assuming a tap opens search), type 'display', wait, then swipe down
-
 # Get resolution first (optional but good practice for coordinates)
 width, height = adb.get_screen_resolution()
 
 if width and height:
-    # Tap somewhere likely to open search (adjust coordinates as needed)
-    # This is just an example coordinate, find one that works on your device/app
+
     print("Tapping to open search (example coordinates)...")
     adb.tap(width // 2, 150) 
-    time.sleep(2) # Wait for search bar to appear
+    time.sleep(2) 
 
     print("Typing 'display'...")
     adb.type_text("display")
