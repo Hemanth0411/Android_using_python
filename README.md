@@ -6,6 +6,7 @@ This repository contains a collection of scripts and tools to **automate Android
 * App navigation and prototyping
 * Building AI agents that simulate human interaction on Android devices
 * Generating annotated views of app UIs for programmatic interaction
+* Extracting APK information and metadata
 
 ---
 
@@ -76,51 +77,94 @@ Users can adapt this script as a template for their own custom automation tasks.
 
 ---
 
+#### 5. **APK Information Extractor (`apk_info.py`)**
+
+📂 [`apk_info.py`](./apk_info.py)
+
+This script extracts key information from Android APK files using the Android Asset Packaging Tool (aapt). It provides:
+
+* Package name extraction
+* App name extraction
+* Clean formatting of extracted information
+* Automatic aapt tool detection in common Android SDK locations
+
+🧪 **Example Use Case**:
+```bash
+python apk_info.py path/to/your.apk
+```
+Output:
+
+---
+
+#### 6. **APK Info Getter (`get_apk_info.py`)**
+
+📂 [`get_apk_info.py`](./get_apk_info.py)
+
+A simplified wrapper script for `apk_info.py` that provides quick access to APK information extraction functionality. Useful for quick command-line usage or integration into other scripts.
+
+---
+
 ### 🚀 Getting Started
 
-1.  **Prerequisites**:
-    *   Ensure ADB (Android Debug Bridge) is installed on your system and added to your system's PATH.
-    *   Connect your Android device via USB or ensure it's connected via Wi-Fi ADB.
-    *   Enable Developer Options and USB Debugging on your Android device.
-    *   Authorize the ADB connection on your device when prompted.
+1. **Prerequisites**:
+    * Ensure ADB (Android Debug Bridge) is installed on your system and added to your system's PATH.
+    * Connect your Android device via USB or ensure it's connected via Wi-Fi ADB.
+    * Enable Developer Options and USB Debugging on your Android device.
+    * Authorize the ADB connection on your device when prompted.
+    * Install Android SDK for APK information extraction features.
 
-2.  **Verify Device Connection**:
+2. **Verify Device Connection**:
     Open a terminal or command prompt and run:
     ```bash
     adb devices
     ```
     You should see your device listed.
 
-3.  **Install Dependencies (if any)**:
-    The `annotated_screenshot_generator.py` script uses `pyshine` and `opencv-python`. Install them if you haven't already:
+3. **Install Dependencies**:
     ```bash
     pip install pyshine opencv-python
     ```
 
-4.  **Running the Scripts**:
+4. **Running the Scripts**:
 
-    *   **ADB Controller (`adb_controller.py`)**: This script is primarily a module to be imported by other scripts. It can be run directly, but it won't perform any actions on its own without being called from another script (like `my_automation.py` or `interactive_adb.py`).
+    * **ADB Controller (`adb_controller.py`)**: This script is primarily a module to be imported by other scripts.
 
-    *   **Interactive ADB Controller (`interactive_adb.py`)**:
+    * **Interactive ADB Controller (`interactive_adb.py`)**:
         ```bash
-        python new/interactive_adb.py 
+        python interactive_adb.py
         ```
         Then follow the on-screen menu.
 
-    *   **Annotated Screenshot Generator (`annotated_screenshot_generator.py`)**:
+    * **Annotated Screenshot Generator (`annotated_screenshot_generator.py`)**:
         ```bash
-        python new/annotated_screenshot_generator.py
+        python annotated_screenshot_generator.py
         ```
         Check the `output_annotated` directory for the result.
 
-    *   **Example Automation (`my_automation.py`)**:
+    * **Example Automation (`my_automation.py`)**:
         ```bash
-        python new/my_automation.py
+        python my_automation.py
         ```
         Observe your connected device to see the automation steps.
 
---- 
+    * **APK Information Extractor (`apk_info.py`)**:
+        ```bash
+        python apk_info.py path/to/your.apk
+        ```
+        Get package name and app name from an APK file.
 
-For `adb_controller.py`, the script itself is a library of functions. To see it in action, you would typically run `interactive_adb.py` or `my_automation.py` which import and use its functions.
+    * **APK Info Getter (`get_apk_info.py`)**:
+        ```bash
+        python get_apk_info.py path/to/your.apk
+        ```
+        Quick access to APK information.
+
+---
+
+### 📝 Notes
+
+* The `adb_controller.py` script is a library of functions. To see it in action, you would typically run `interactive_adb.py` or `my_automation.py` which import and use its functions.
+* For APK information extraction, make sure you have Android SDK installed with build-tools.
+* All scripts include error handling and user feedback for better usability.
 
 
