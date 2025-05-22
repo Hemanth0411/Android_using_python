@@ -1,18 +1,20 @@
-## 📱 Android Automation Utilities
+## 📱 Android Automation and Testing Utilities
 
-This repository contains a collection of scripts and tools to **automate Android device interactions** using ADB (Android Debug Bridge). These utilities are helpful for:
+This repository contains a comprehensive suite of tools for **Android device automation, testing, and UI analysis** using ADB (Android Debug Bridge). These utilities support:
 
 * UI testing and validation
-* App navigation and prototyping
-* Building AI agents that simulate human interaction on Android devices
-* Generating annotated views of app UIs for programmatic interaction
-* Extracting APK information and metadata
+* APK installation and verification
+* App navigation automation
+* Grid-based UI analysis
+* Visual AI assistance for UI interaction
+* Screenshot analysis and annotation
+* APK information extraction
 
 ---
 
-### 🔧 Available Scripts
+### 🔧 Core Utilities
 
-#### 1. **ADB Controller Script (`adb_controller.py`)**
+#### 1. **ADB Controller (`adb_controller.py`)**
 
 📂 [`adb_controller.py`](./adb_controller.py)
 
@@ -48,59 +50,109 @@ This is useful for manually testing ADB commands or exploring app interactions w
 
 ---
 
-#### 3. **Annotated Screenshot Generator (`annotated_screenshot_generator.py`)**
+#### 3. **Workflow Manager (`workflow_manager.py`)**
+
+📂 [`workflow_manager.py`](./workflow_manager.py)
+
+Manages the complete workflow for APK installation and preparation:
+* Gets APK information (package name, app name)
+* Installs APK on the device with retries
+* Verifies installation
+* Prepares information for agent interaction
+* Supports command-line arguments for customization
+
+Usage:
+```bash
+python workflow_manager.py "path/to/app.apk" "Task description" --retries 2 --wait 5
+```
+
+#### 4. **Grid Generator (`test_grid_generator.py`)**
+
+📂 [`test_grid_generator.py`](./test_grid_generator.py)
+
+Creates a grid overlay on device screenshots for precise UI analysis:
+* Captures device screenshots
+* Generates numbered grid cells
+* Calculates cell boundaries and centers
+* Provides quadrant information for precise tapping
+* Exports grid information in JSON format
+
+#### 5. **Points Generator (`test_points.py`)**
+
+📂 [`test_points.py`](./test_points.py)
+
+Generates a custom points layout for UI interaction:
+* Creates labeled interaction points
+* Supports primary and secondary point labeling
+* Provides precise coordinate information
+* Exports points data in JSON format
+
+---
+
+### 📸 Visual Analysis Tools
+
+#### 1. **Annotated Screenshot Generator (`annotated_screenshot_generator.py`)**
 
 📂 [`annotated_screenshot_generator.py`](./annotated_screenshot_generator.py)
 
-This script captures the current screen and its UI layout (XML hierarchy) from the Android device. It then:
+Enhanced screenshot annotation tool:
+* Captures screen and UI hierarchy
+* Identifies clickable and focusable elements
+* Generates unique element IDs
+* Creates annotated screenshots with bounding boxes
+* Supports multiple annotation modes (clickable, focusable)
 
-* Parses the XML to identify specified UI elements (e.g., all "clickable" elements).
-* Assigns unique IDs to these elements (using logic similar to some UI automation agents).
-* Draws bounding boxes and numerical labels on the captured screenshot around the identified elements.
-* Saves the annotated screenshot to an output directory.
+#### 2. **Utils (`utils.py`)**
 
-This utility is crucial for developing systems that need to visually understand and interact with specific UI components, forming a basis for more advanced UI automation and AI agents.
+📂 [`utils.py`](./utils.py)
 
----
-
-#### 4. **Example Automation Script (`my_automation.py`)**
-
-📂 [`my_automation.py`](./my_automation.py)
-
-This script serves as a practical example demonstrating how to use the `adb_controller.py` module to create a simple automation workflow. It illustrates:
-
-* Importing and using functions from `adb_controller.py`.
-* Sequencing actions like tapping, typing, and swiping with appropriate delays.
-* A basic example of navigating an app (e.g., opening search, typing, and swiping).
-
-Users can adapt this script as a template for their own custom automation tasks.
+Utility functions for image processing and display:
+* Color-coded console output
+* Image annotation utilities
+* Text overlay with background
+* Image encoding utilities
+* Bounding box drawing functions
 
 ---
 
-#### 5. **APK Information Extractor (`apk_info.py`)**
+### 📦 APK Management Tools
+
+#### 1. **APK Information Suite**
+
+A collection of tools for APK handling:
 
 📂 [`apk_info.py`](./apk_info.py)
+* Main APK information extractor
+* Package name and app name extraction
+* Automatic aapt detection
+* Clean information formatting
 
-This script extracts key information from Android APK files using the Android Asset Packaging Tool (aapt). It provides:
+📂 [`install_apk.py`](./install_apk.py)
+* APK installation handler
+* Installation verification
+* Error handling and reporting
 
-* Package name extraction
-* App name extraction
-* Clean formatting of extracted information
-* Automatic aapt tool detection in common Android SDK locations
+📂 [`check_package.py`](./check_package.py)
+* Package installation verification
+* Version information retrieval
+* Package presence checking
 
-🧪 **Example Use Case**:
-```bash
-python apk_info.py path/to/your.apk
-```
-Output:
+📂 [`apk_installer_checker.py`](./apk_installer_checker.py)
+* Combined installation and verification
+* Multi-retry support
+* Detailed status reporting
 
 ---
 
-#### 6. **APK Info Getter (`get_apk_info.py`)**
+### 🤖 AI Integration Tools
 
-📂 [`get_apk_info.py`](./get_apk_info.py)
+Several utilities for AI-assisted UI interaction:
 
-A simplified wrapper script for `apk_info.py` that provides quick access to APK information extraction functionality. Useful for quick command-line usage or integration into other scripts.
+* **Ratio Analysis** (`ratio.py`, `new_ratio.py`)
+* **Gemini Integration** (`gemini.py`)
+* **OpenAI Integration** (`openai123.py`)
+
+These tools provide various approaches to AI-assisted UI element detection and interaction.
 
 ---
 
@@ -113,58 +165,39 @@ A simplified wrapper script for `apk_info.py` that provides quick access to APK 
     * Authorize the ADB connection on your device when prompted.
     * Install Android SDK for APK information extraction features.
 
-2. **Verify Device Connection**:
-    Open a terminal or command prompt and run:
-    ```bash
-    adb devices
-    ```
-    You should see your device listed.
+2. **Project Setup**:
+```bash
+git clone <repository-url>
+cd <project-directory>
+pip install -r requirements.txt
+```
 
-3. **Install Dependencies**:
-    ```bash
-    pip install pyshine opencv-python
-    ```
+3. **Environment Configuration**:
+* Configure API keys for AI services (if using AI integration)
+* Set up Android SDK path for APK tools
+* Ensure ADB is in system PATH
 
-4. **Running the Scripts**:
+4. **Basic Usage**:
+Start with the interactive controller:
+```bash
+python interactive_adb.py
+```
 
-    * **ADB Controller (`adb_controller.py`)**: This script is primarily a module to be imported by other scripts.
-
-    * **Interactive ADB Controller (`interactive_adb.py`)**:
-        ```bash
-        python interactive_adb.py
-        ```
-        Then follow the on-screen menu.
-
-    * **Annotated Screenshot Generator (`annotated_screenshot_generator.py`)**:
-        ```bash
-        python annotated_screenshot_generator.py
-        ```
-        Check the `output_annotated` directory for the result.
-
-    * **Example Automation (`my_automation.py`)**:
-        ```bash
-        python my_automation.py
-        ```
-        Observe your connected device to see the automation steps.
-
-    * **APK Information Extractor (`apk_info.py`)**:
-        ```bash
-        python apk_info.py path/to/your.apk
-        ```
-        Get package name and app name from an APK file.
-
-    * **APK Info Getter (`get_apk_info.py`)**:
-        ```bash
-        python get_apk_info.py path/to/your.apk
-        ```
-        Quick access to APK information.
+Or run a complete APK workflow:
+```bash
+python workflow_manager.py "path/to/app.apk" "Install and prepare app"
+```
 
 ---
 
 ### 📝 Notes
 
-* The `adb_controller.py` script is a library of functions. To see it in action, you would typically run `interactive_adb.py` or `my_automation.py` which import and use its functions.
-* For APK information extraction, make sure you have Android SDK installed with build-tools.
-* All scripts include error handling and user feedback for better usability.
+* Most scripts support both command-line and programmatic usage
+* AI integration requires appropriate API keys
+* Error handling and logging is implemented throughout
+* Grid and point generation tools create JSON output for automation use
+* Screenshot tools support various annotation modes
+
+For detailed API documentation and examples, see individual script headers.
 
 

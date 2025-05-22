@@ -43,7 +43,7 @@ def type_text(text):
     """Types the given text using ADB."""
     # Replace spaces with %s for ADB command
     escaped_text = text.replace(' ', '%s')
-    run_adb_command(f"shell input text '{escaped_text}'") # Use single quotes for safety
+    run_adb_command(f"shell input text '{escaped_text}'") 
 
 def tap(x, y):
     """Taps at the specified coordinates."""
@@ -133,7 +133,6 @@ def volume_down():
 
 def open_notifications():
     """Opens the notification shade."""
-    # This uses a different command than keyevent
     run_adb_command("shell cmd statusbar expand-notifications")
 
 def press_power():
@@ -162,7 +161,6 @@ def press_media_previous():
 
 def press_mute():
     """Presses the MUTE button."""
-    # Keycode 164 is common, 91 is older
     press_keyevent(164)
 
 def press_app_switch():
