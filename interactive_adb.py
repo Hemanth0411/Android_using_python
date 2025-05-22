@@ -1,4 +1,4 @@
-import new.adb_controller as adb
+import adb_controller as adb
 import sys
 import time
 

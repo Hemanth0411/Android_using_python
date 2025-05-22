@@ -10,11 +10,11 @@ if width and height:
 
     print("Tapping to open search (example coordinates)...")
     adb.tap(width // 2, 150) 
-    time.sleep(2) 
+    time.sleep(2)
 
     print("Typing 'display'...")
     adb.type_text("display")
-    time.sleep(2) # Wait for search results
+    time.sleep(2)
 
     print("Swiping down...")
     adb.swipe_down()

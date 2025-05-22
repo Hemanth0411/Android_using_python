@@ -1,0 +1,46 @@
+import cv2
+import numpy as np
+from PIL import Image
+
+# Load the reference image (screenshot)
+img_path = r"C:\Users\lonel\Desktop\New folder\new\temp_capture\capture.png"
+image = cv2.imread(img_path)
+
+# Provided image and screen coordinates
+img_coords = np.array([
+    [115, 1150], [85, 1860], [790, 980], [420, 930],
+    [115, 185], [250, 1580], [360, 1740], [600, 1760],
+    [810, 1680], [720, 1240], [420, 640], [85, 470],
+    [420, 190], [300, 110], [790, 170], [860, 280],
+    [410, 1360], [780, 640]
+], dtype="float32")
+
+screen_coords = np.array([
+    [176, 1644], [119, 2589], [1005, 1341], [523, 1334],
+    [91, 318], [334, 2165], [480, 2457], [848, 2432],
+    [1120, 2296], [955, 1726], [570, 918], [166, 789],
+    [641, 271], [499, 67], [1198, 81], [1118, 429],
+    [577, 1904], [1001, 913]
+], dtype="float32")
+
+# Compute the homography matrix from img_coords to screen_coords
+homography_matrix, _ = cv2.findHomography(img_coords, screen_coords)
+
+# Save the resized image to be passed to the LLM (e.g., 800x800)
+resized_image = cv2.resize(image, (800, 800))
+resized_image_pil = Image.fromarray(cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB))
+resized_image_path = r"C:\Users\lonel\Desktop\New folder\new\temp_capture\re_capture.png"
+resized_image_pil.save(resized_image_path)
+
+import numpy as np
+import cv2
+
+def get_actual_coordinates(llm_x, llm_y, homography_matrix):
+    point = np.array([[llm_x, llm_y]], dtype='float32')
+    point = np.array([point])
+    mapped_point = cv2.perspectiveTransform(point, homography_matrix)
+    return tuple(mapped_point[0][0])
+
+actual_x, actual_y = get_actual_coordinates(550, 860, homography_matrix)
+
+print(int(actual_x), int(actual_y))
